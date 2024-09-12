@@ -107,7 +107,6 @@ public class PlayerAmmoPool : MonoBehaviour
         {
             if (rockets[i].activeSelf == false)
             {
-
                 rockets[i].SetActive(true);
                 rockets[i].transform.position = FirePoint.position;
                 rockets[i].GetComponent<PlayerRocket>().ApplyData(target, damage, radius, lifeTime, LaunchSpeed);

@@ -25,9 +25,12 @@ public class EnemyData : MonoBehaviour
     public EnemyBoss_1 eb1;
     private bool hasDied;
 
-    private void Start()
+    private void OnEnable()
     {
         Hp = maxHp;
+        hasDied = false;
+        cannotTakeDamage = false;
+        GetComponent<CapsuleCollider>().enabled = true;
 
         ItemSpawnLocation = transform.GetChild(0);
 

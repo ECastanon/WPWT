@@ -125,6 +125,6 @@ public class EnemyTurret : MonoBehaviour
 
         ProjectileToLaunch.GetComponent<MeshRenderer>().enabled = true;
 
-        //ProjectileToLaunch.StartParticles();
+        ProjectileToLaunch.StartParticles();
     }
 }

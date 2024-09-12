@@ -142,6 +142,10 @@ public class PlayerTurret : MonoBehaviour
         if(other.gameObject.tag == "Enemy" && !enemiesInRange.Contains(other.gameObject))
         {
             enemiesInRange.Add(other.gameObject);
+            if(enemiesInRange.Count == 1)
+            {
+                nearestTarget = other.gameObject;
+            }
         }
     }
     private void OnTriggerStay(Collider other)
@@ -149,6 +153,10 @@ public class PlayerTurret : MonoBehaviour
         if (other.gameObject.tag == "Enemy" && !enemiesInRange.Contains(other.gameObject))
         {
             enemiesInRange.Add(other.gameObject);
+            if (enemiesInRange.Count == 1)
+            {
+                nearestTarget = other.gameObject;
+            }
         }
     }
 

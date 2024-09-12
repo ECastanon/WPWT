@@ -71,19 +71,7 @@ public class EnemyEngineer : MonoBehaviour
         counter += 1;
         if(counter >= buildCounter)
         {
-            GameObject obj = Instantiate(ObjectToBuild, buildPoint.position, Quaternion.identity);
-            if (GameObject.Find("EndlessWaveManager"))
-            {
-                GameObject.Find("EndlessWaveManager").GetComponent<EndlessWaveManager>().spawnedEnemies.Add(obj);
-                obj.transform.parent = GameObject.Find("AllSpawnedEnemies").transform;
-            }
-            if (GameObject.Find("WaveManager"))
-            {
-                WaveManager wm = GameObject.Find("WaveManager").GetComponent<WaveManager>();
-                wm.waves[wm.waveCount - 1].spawnedEnemies.Add(obj);
-                obj.transform.parent = GameObject.Find("AllSpawnedEnemies").transform;
-            }
-
+            GameObject.Find("EnemySpawnPool").GetComponent<EnemySpawnPool>().ActivateEnemy(ObjectToBuild, buildPoint);
         }
     }
     public void RepeatBuild()

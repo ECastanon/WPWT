@@ -6,29 +6,32 @@ using UnityEngine;
 
 public class EndlessWaveManager : MonoBehaviour
 {
+    private EnemySpawnPool esp;
+
     public int currWaveNumber;
+    private bool isActivated;
+
     public List<EndEnemy> enemies = new List<EndEnemy>();
-    private List<GameObject> enemiesToSpawn = new List<GameObject>();
+    public List<GameObject> enemiesToSpawn = new List<GameObject>();
+    private int totalBosses;
+
     private List<Transform> spawnLocation = new List<Transform>();
     private int spawnIndex;
-    public int waveDuration;
     private float spawnInterval;
     private float spawnTimer;
-    private bool isActivated;
-    private float waveTimer;
+
+    public int waveDuration;
 
     public float betweenWaveTimer;
     public float timer;
 
-    private int totalBosses;
-
     private TextMeshProUGUI wavecountertext;
     private TextMeshProUGUI wavetimertext;
 
-    public List<GameObject> spawnedEnemies = new List<GameObject>();
-    // Start is called before the first frame update
     void Start()
     {
+        esp = GameObject.Find("EnemySpawnPool").GetComponent<EnemySpawnPool>();
+        
         wavecountertext = GameObject.Find("wavetxt").GetComponent<TextMeshProUGUI>();
         wavetimertext = GameObject.Find("nextwavecount").GetComponent<TextMeshProUGUI>();
 
@@ -36,67 +39,39 @@ public class EndlessWaveManager : MonoBehaviour
         {
             spawnLocation.Add(point);
         }
-
-        //GenerateWave();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if(!isActivated && timer > betweenWaveTimer) 
+        if (!isActivated)
         {
-            wavecountertext.text = "Wave: " + (currWaveNumber + 1);
-            timer = 0;
-            GenerateWave();
-        }
-        else
-        {
-            timer += Time.deltaTime;
             int time = (int)(betweenWaveTimer - timer) + 1;
             wavetimertext.text = "Next Wave in " + time + " seconds";
         }
+        else wavetimertext.text = "";
+        timer += Time.deltaTime;
 
-        if (spawnTimer <= 0)
+        //Wave is not activated and the betweenWaveTimer has passed
+        if (!isActivated && timer > betweenWaveTimer) 
         {
-            //spawn an enemy
-            if (enemiesToSpawn.Count > 0)
-            {
-                GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity); // spawn first enemy in our list
-                enemy.transform.parent = GameObject.Find("AllSpawnedEnemies").transform;
-                if (enemy.name.Contains("Boss"))
-                {
-                    spawnLocation[spawnIndex].position = new Vector3(spawnLocation[spawnIndex].position.x, 2, spawnLocation[spawnIndex].position.z);
-                }
-                enemiesToSpawn.RemoveAt(0); // and remove it
-                spawnedEnemies.Add(enemy);
-                spawnTimer = spawnInterval;
-
-                if (spawnIndex + 1 <= spawnLocation.Count - 1)
-                {
-                    spawnIndex++;
-                }
-                else
-                {
-                    spawnIndex = 0;
-                }
-            }
-            else
-            {
-                waveTimer = 0; // if no enemies remain, end wave
-            }
-        }
-        else
-        {
-            spawnTimer -= Time.fixedDeltaTime;
-            waveTimer -= Time.fixedDeltaTime;
+            //Activate and start generating the wave
+            GenerateWave();
+            isActivated = true;
+            spawnTimer = spawnInterval;
+            wavecountertext.text = "Wave: " + (currWaveNumber);
         }
 
-        CheckSpawnedEnemies();
+        //Events that play while a wave is activated
+        if (isActivated)
+        {
+            SpawnEnemyList();
+            CheckSpawnedEnemies();
+        }
+
     }
 
     public void GenerateWave()
     {
-        //Add scraps from wave to the total scrap count
         ScrapManager sm = GameObject.Find("GameManager").GetComponent<ScrapManager>();
         //Increase the multiplier based on wave count
         if (currWaveNumber % sm.IncreaseAfterEveryXWaves == 0)
@@ -104,16 +79,14 @@ public class EndlessWaveManager : MonoBehaviour
             sm.IncreaseMultiplier();
         }
 
-            isActivated = true;
         currWaveNumber += 1;
         CreateNextWave();
         GenerateEnemies();
 
         spawnInterval = waveDuration / enemiesToSpawn.Count; // gives a fixed time between each enemies
-        waveTimer = waveDuration; // wave duration is read only
     }
 
-    public void GenerateEnemies()
+    public void GenerateEnemies() //Generates the list of enemies to spawn in
     {
         List<GameObject> generatedEnemies = new List<GameObject>();
 
@@ -129,7 +102,7 @@ public class EndlessWaveManager : MonoBehaviour
         }
         if (numberToSpawn <= 0) { numberToSpawn = 1; } //Prevent divding by zero or negative value
 
-        ShuffleList(generatedEnemies);
+        //ShuffleList(generatedEnemies);
         enemiesToSpawn.Clear();
         enemiesToSpawn = generatedEnemies;
     }
@@ -140,6 +113,8 @@ public class EndlessWaveManager : MonoBehaviour
         {
             T temp = list[i];
             int rand = Random.Range(1, list.Count);
+            Debug.Log("listcount: " + list.Count);
+            Debug.Log("rand: " + rand);
             list[i] = list[rand];
             list[rand] = temp;
         }
@@ -147,30 +122,29 @@ public class EndlessWaveManager : MonoBehaviour
 
     private void CheckSpawnedEnemies()
     {
-        foreach (var enemy in spawnedEnemies)
+        int counter = 0;
+        Transform AllEnemies = GameObject.Find("AllSpawnedEnemies").transform;
+
+        foreach (Transform e in AllEnemies)
         {
-            if (enemy.activeSelf == false || enemy == null)
+            if (e.gameObject.activeSelf == false)
             {
-                spawnedEnemies.Remove(enemy);
-                break;
+                counter++;
             }
         }
-        if (spawnedEnemies.Count <= 0 && isActivated)
+
+        //When all enemies are disabled
+        Debug.Log(counter);
+        Debug.Log(AllEnemies.childCount);
+        if (counter >= AllEnemies.childCount)
         {
-            foreach (Transform e in GameObject.Find("AllSpawnedEnemies").transform)
-            {
-                Destroy(e.gameObject);
-            }
+            //End the wave
             isActivated = false;
             timer = 0;
         }
-        if(spawnedEnemies.Count > 0)
-        {
-            wavetimertext.text = "";
-        }
     }
 
-    private void CreateNextWave()
+    private void CreateNextWave() //Generates the number of enemies spawned in the wave
     {
         //Reset Wave
         enemies[0].endCount = 0;
@@ -188,13 +162,13 @@ public class EndlessWaveManager : MonoBehaviour
             amplify = true;
         }
 
-        //Randomly select a base wave
-        int baseWaveNumber = Random.Range(1, 4);
-        BaseWaves ewm = GetComponent<BaseWaves>();
-
         //If it is an amplify wave, set enemy numbers to the amplified value
         if (amplify)
         {
+            //Randomly select a base wave
+            int baseWaveNumber = Random.Range(1, 4);
+            BaseWaves ewm = GetComponent<BaseWaves>();
+
             switch (baseWaveNumber)
             {
                 case 1:
@@ -248,6 +222,36 @@ public class EndlessWaveManager : MonoBehaviour
         }
 
         return bosses + totalBosses;
+    }
+
+    private int GetNextSpawnIndex()
+    {
+        if (spawnIndex + 1 <= spawnLocation.Count - 1)
+        {
+            spawnIndex++;
+        }
+        else
+        {
+            spawnIndex = 0;
+        }
+
+        return spawnIndex;
+    }
+
+    private void SpawnEnemyList()
+    {
+        if (spawnTimer >= spawnInterval && enemiesToSpawn.Count > 0)
+        {
+            //Spawns/Instantiates the first enemy from the EnemySpawnPool
+            //Removes first enemy from the list
+            esp.ActivateEnemy(enemiesToSpawn[0], spawnLocation[GetNextSpawnIndex()]);
+            enemiesToSpawn.RemoveAt(0);
+
+            //Reset Timer
+            spawnTimer = 0;
+        }
+
+        spawnTimer += Time.fixedDeltaTime;
     }
 }
 [System.Serializable]
