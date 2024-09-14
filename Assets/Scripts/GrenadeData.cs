@@ -12,66 +12,33 @@ public class GrenadeData : MonoBehaviour
     private float timer;
 
     public GameObject player;
-    private GameObject rangeIndicator;
 
-    public Material OriginalMaterial;
-    public Material FlashedMaterial;
+    private bool isGrounded;
 
     public float minVariance, maxVariance;
 
-    private bool flashing;
-
-    private void Start()
+    private void OnEnable()
     {
-        rangeIndicator = transform.GetChild(0).gameObject;
-        rangeIndicator.SetActive(false);
+        timer = 0;
+        isGrounded = false;
     }
 
     private void Update()
     {
-        if(transform.position.y < .1f)
+        if(transform.position.y < .1f && !isGrounded)
         {
-
             transform.position = new Vector3(transform.position.x, 0.099f, transform.position.z);
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            rangeIndicator.SetActive(true);
-            Vector3 radius = new Vector3(grenageRadius, rangeIndicator.transform.localScale.y, grenageRadius);
-            rangeIndicator.transform.localScale = radius;
+            isGrounded = true;
         }
-
-        if(rangeIndicator.activeSelf == true)
+        if (isGrounded)
         {
-            if(!flashing) { StartCoroutine(Flash()); flashing = true; }
+            timer += Time.deltaTime;
 
-            if(timer > grenadeTimer)
+            if(timer >= grenadeTimer)
             {
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                timer = 0;
-
-                
-                ApplyDamageToPlayer();
-
                 gameObject.SetActive(false);
             }
-            timer += Time.deltaTime;
-        }
-    }
-
-    // onRatio and offRatio are "optional" parameters
-    // If not provided, they will simply have their default value 1
-    IEnumerator Flash()
-    {
-        while (true)
-        {
-            float cycleDuration = (grenadeTimer - timer) / grenadeTimer * 2;
-
-            rangeIndicator.GetComponent<MeshRenderer>().material = OriginalMaterial;
-
-            yield return new WaitForSeconds(cycleDuration);
-
-            rangeIndicator.GetComponent<MeshRenderer>().material = FlashedMaterial;
-
-            yield return new WaitForSeconds(cycleDuration / 2);
         }
     }
 
@@ -115,6 +82,22 @@ public class GrenadeData : MonoBehaviour
         {
             player.GetComponent<PlayerData>().TakeDamage(grenadeDamage);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            ApplyDamageToPlayer();
+            timer = grenadeTimer;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, grenageRadius);
     }
 }
 

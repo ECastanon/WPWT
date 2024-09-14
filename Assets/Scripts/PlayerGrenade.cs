@@ -7,70 +7,18 @@ public class PlayerGrenade : MonoBehaviour
 {
     public int grenadeDamage;
     public float grenageRadius;
-    public float grenadeTimer;
-    private float timer;
 
-    private GameObject rangeIndicator;
-
-    public Material OriginalMaterial;
-    public Material FlashedMaterial;
-
-    private bool flashing;
+    private bool isGrounded;
 
     public List<EnemyData> enemiesInRange = new List<EnemyData>();
 
-    private void Start()
-    {
-        rangeIndicator = transform.GetChild(0).gameObject;
-        rangeIndicator.SetActive(false);
-    }
-
     private void Update()
     {
-        if (transform.position.y < .1f)
+        if (transform.position.y < .1f && !isGrounded)
         {
-            transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, 0.099f, transform.position.z);
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            rangeIndicator.SetActive(true);
-            Vector3 radius = new Vector3(grenageRadius, rangeIndicator.transform.localScale.y, grenageRadius);
-            rangeIndicator.transform.localScale = radius;
-        }
-
-        if (rangeIndicator.activeSelf == true)
-        {
-            if (!flashing) { StartCoroutine(Flash()); flashing = true; }
-
-            if (timer > grenadeTimer)
-            {
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                timer = 0;
-
-                GetAllEnemiesInRange();
-                ApplyDamage();
-
-                rangeIndicator.GetComponent<MeshRenderer>().material = OriginalMaterial;
-                rangeIndicator.SetActive(false);
-                gameObject.SetActive(false);
-            }
-            timer += Time.deltaTime;
-        }
-    }
-
-    // onRatio and offRatio are "optional" parameters
-    // If not provided, they will simply have their default value 1
-    IEnumerator Flash()
-    {
-        while (true)
-        {
-            float cycleDuration = (grenadeTimer - timer) / grenadeTimer;
-
-            rangeIndicator.GetComponent<MeshRenderer>().material = OriginalMaterial;
-
-            yield return new WaitForSeconds(cycleDuration / 2);
-
-            rangeIndicator.GetComponent<MeshRenderer>().material = FlashedMaterial;
-
-            yield return new WaitForSeconds(cycleDuration / 4);
+            isGrounded = true;
         }
     }
 
@@ -97,11 +45,10 @@ public class PlayerGrenade : MonoBehaviour
         enemiesInRange.Clear();
     }
 
-    public void ApplyData(int damage, float radius, float timeUntilExplosion)
+    public void ApplyData(int damage, float radius)
     {
         grenadeDamage = damage;
         grenageRadius = radius;
-        grenadeTimer = timeUntilExplosion;
     }
     public void Launch(Transform playerTransform, float LaunchSpeed)
     {
@@ -119,5 +66,16 @@ public class PlayerGrenade : MonoBehaviour
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, grenageRadius / 2);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Contains("Enemy"))
+        {
+            GetAllEnemiesInRange();
+            ApplyDamage();
+
+            gameObject.SetActive(false);
+        }
     }
 }

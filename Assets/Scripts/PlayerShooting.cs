@@ -42,7 +42,6 @@ public class PlayerShooting : MonoBehaviour
     [Header("Grenade")]
     public int grenadeDamage;
     public float grenadeRadius;
-    public float grenadeTimer;
     public float launchAngle;
     public float launchSpeed;
     //Projectile Fire Rate
@@ -177,7 +176,7 @@ public class PlayerShooting : MonoBehaviour
         sword.gameObject.SetActive(false);
         if (Input.GetMouseButton(0) && grenadeFireRate < interval)
         {
-            pap.SpawnGrenade(grenadeDamage, grenadeRadius, grenadeTimer, transform, launchSpeed, FirePoint);
+            pap.SpawnGrenade(grenadeDamage, grenadeRadius, transform, launchSpeed, FirePoint);
 
             interval = 0;
 

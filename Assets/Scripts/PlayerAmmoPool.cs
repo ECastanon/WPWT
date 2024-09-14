@@ -73,7 +73,7 @@ public class PlayerAmmoPool : MonoBehaviour
         }
     }
 
-    public void SpawnGrenade(int damage, float radius, float timeUntilExplosion, Transform playerTransform, float LaunchSpeed, Transform FirePoint)
+    public void SpawnGrenade(int damage, float radius, Transform playerTransform, float LaunchSpeed, Transform FirePoint)
     {
         for (int i = 0; i < grenades.Count; i++)
         {
@@ -81,7 +81,7 @@ public class PlayerAmmoPool : MonoBehaviour
             {
                 grenades[i].SetActive(true);
                 grenades[i].transform.position = FirePoint.position;
-                grenades[i].GetComponent<PlayerGrenade>().ApplyData(damage, radius, timeUntilExplosion);
+                grenades[i].GetComponent<PlayerGrenade>().ApplyData(damage, radius);
                 grenades[i].GetComponent<PlayerGrenade>().Launch(playerTransform, LaunchSpeed);
                 break;
             }

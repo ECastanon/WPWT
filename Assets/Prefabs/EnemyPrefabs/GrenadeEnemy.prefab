@@ -278,7 +278,7 @@ MonoBehaviour:
   grenade: {fileID: 807984473947176185, guid: 3fca72cef8d6d5e4cbc26ad4c15ea239, type: 3}
   grenadeDamage: 5
   grenageRadius: 5
-  grenadeTimer: 5
+  grenadeTimer: 20
   grenadeVelocity: 11
   grenadeInterval: 4
   damage: 1
