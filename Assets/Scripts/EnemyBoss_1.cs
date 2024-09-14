@@ -20,7 +20,6 @@ public class EnemyBoss_1 : MonoBehaviour
 
     private Animator anim;
     public bool animPlaying;
-    private float movement;
 
     private void Start()
     {
@@ -34,8 +33,6 @@ public class EnemyBoss_1 : MonoBehaviour
 
     private void Update()
     {
-        enemy.SetDestination(player.transform.position);
-
         if (enemy.velocity.magnitude < 0.5f)
         {
             Vector3 relativePos = player.transform.position - transform.position;
@@ -57,12 +54,7 @@ public class EnemyBoss_1 : MonoBehaviour
         }
         damageCooldownTimer += Time.deltaTime;
 
-        if (enemy.velocity.magnitude < 0.1f) { movement = 0; }
-        else { movement += 3 * Time.deltaTime; }
-
         if (animPlaying) { GetComponent<NavMeshAgent>().speed = 0; } else { GetComponent<NavMeshAgent>().speed = 6; };
-
-        anim.SetFloat("Blend", movement);
     }
 
     private void OnCollisionEnter(Collision collision)

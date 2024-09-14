@@ -29,7 +29,7 @@ public class EnemyFly : MonoBehaviour
         enemy = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
 
-        anim = transform.GetChild(3).GetComponent<Animator>();
+        anim = transform.GetChild(2).GetComponent<Animator>();
 
         damageCooldownTimer = damageCooldown;
     }

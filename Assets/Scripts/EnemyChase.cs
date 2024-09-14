@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyChase : MonoBehaviour
 {
-    private NavMeshAgent enemy;
     private GameObject player;
 
     public int damage;
@@ -13,11 +12,9 @@ public class EnemyChase : MonoBehaviour
     private float damageCooldownTimer;
 
     private Animator anim;
-    private float movement;
 
     private void Start()
     {
-        enemy = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
 
         anim = transform.GetChild(2).GetComponent<Animator>();
@@ -27,20 +24,7 @@ public class EnemyChase : MonoBehaviour
 
     private void Update()
     {
-        enemy.SetDestination(player.transform.position);
-
-        if (enemy.velocity.magnitude < 0.1f)
-        {
-            Vector3 relativePos = player.transform.position - transform.position;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), 7 * Time.deltaTime);
-        }
-
         damageCooldownTimer += Time.deltaTime;
-
-        if (enemy.velocity.magnitude < 0.1f) { movement = 0; }
-        else { movement += 3 * Time.deltaTime; }
-
-        anim.SetFloat("Blend", movement);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -13,7 +13,6 @@ public class EnemyGrenade : MonoBehaviour
     private GameObject throwLocation;
 
     private Animator anim;
-    private float movement;
 
     public GameObject grenade;
     public int grenadeDamage;
@@ -35,18 +34,16 @@ public class EnemyGrenade : MonoBehaviour
         //Some variance to the stopping distance
         enemy.stoppingDistance += Random.Range(-2, 3);
         player = GameObject.Find("Player");
-        throwLocation = transform.GetChild(2).gameObject;
+        throwLocation = transform.GetChild(1).gameObject;
 
         damageCooldownTimer = damageCooldown;
 
-        anim = transform.GetChild(3).GetComponent<Animator>();
+        anim = transform.GetChild(2).GetComponent<Animator>();
 
     }
 
     private void Update()
     {
-        enemy.SetDestination(player.transform.position);
-
         if (enemy.velocity.magnitude < 0.5f)
         {
             Vector3 relativePos = player.transform.position - transform.position;
@@ -70,11 +67,6 @@ public class EnemyGrenade : MonoBehaviour
             timer += Time.deltaTime;
         }
         damageCooldownTimer += Time.deltaTime;
-
-        if (enemy.velocity.magnitude < 0.1f) { movement = 0; }
-        else { movement += 3 * Time.deltaTime; }
-
-        anim.SetFloat("Blend", movement);
     }
 
     private void OnCollisionEnter(Collision collision)

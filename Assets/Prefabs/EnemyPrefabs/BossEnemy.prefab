@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 2709918790309423570}
   - component: {fileID: 9172590045155813598}
   - component: {fileID: 1765727318495161617}
+  - component: {fileID: 1515240603343035226}
   m_Layer: 8
   m_Name: BossEnemy
   m_TagString: Enemy
@@ -607,6 +608,18 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 0.764151, g: 0.16825984, b: 0.10453011, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &1515240603343035226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957918539091992849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc58c7d4c66a0a4d894687c4c6c6fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5308240704249980664
 GameObject:
   m_ObjectHideFlags: 0

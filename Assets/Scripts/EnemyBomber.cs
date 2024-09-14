@@ -5,11 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyBomber : MonoBehaviour
 {
-    private NavMeshAgent enemy;
-    private GameObject player;
 
-    private Animator anim;
-    private float movement;
+    private GameObject player;
 
     public int blastDamage;
 
@@ -19,27 +16,11 @@ public class EnemyBomber : MonoBehaviour
 
     private void Start()
     {
-        enemy = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
-
-        anim = transform.GetChild(2).GetComponent<Animator>();
     }
 
     private void Update()
     {
-        enemy.SetDestination(player.transform.position);
-
-        if (enemy.velocity.magnitude < 0.1f)
-        {
-            Vector3 relativePos = player.transform.position - transform.position;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), 7 * Time.deltaTime);
-        }
-
-        if (enemy.velocity.magnitude < 0.1f) { movement = 0; }
-        else { movement += 3 * Time.deltaTime; }
-
-        anim.SetFloat("Blend", movement);
-
         timer += Time.deltaTime;
         if (timer > bombTime / 2)
         {
@@ -56,7 +37,6 @@ public class EnemyBomber : MonoBehaviour
             }
             gameObject.SetActive(false);
         }
-        
     }
 
     void OnDrawGizmosSelected()

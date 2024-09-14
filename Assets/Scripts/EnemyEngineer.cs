@@ -6,10 +6,8 @@ using UnityEngine.AI;
 public class EnemyEngineer : MonoBehaviour
 {
     private NavMeshAgent enemy;
-    private GameObject player;
 
     private Animator anim;
-    private float movement;
 
     public GameObject BlastAnim;
 
@@ -29,7 +27,6 @@ public class EnemyEngineer : MonoBehaviour
     private void Start()
     {
         enemy = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player");
 
         buildPoint = transform.GetChild(3);
 
@@ -40,19 +37,6 @@ public class EnemyEngineer : MonoBehaviour
 
     private void Update()
     {
-        enemy.SetDestination(player.transform.position);
-
-        if (enemy.velocity.magnitude < 0.1f)
-        {
-            Vector3 relativePos = player.transform.position - transform.position;
-            if (!isBuilding) { transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), 7 * Time.deltaTime); }
-        }
-
-        if (enemy.velocity.magnitude < 0.1f) { movement = 0; }
-        else { movement += 3 * Time.deltaTime; }
-
-        anim.SetFloat("Blend", movement);
-
         if(timer > TimeUntilBuild)
         {
             timer = 0;

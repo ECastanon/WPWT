@@ -8,13 +8,11 @@ public class EnemyShield : MonoBehaviour
     private NavMeshAgent enemy;
 
     private GameObject player;
-    private Transform shieldTarget;
 
     private ShieldData shieldData;
     private EnemyData enemyData;
 
     private Animator anim;
-    private float movement;
 
     public int damage;
     public float damageCooldown;
@@ -22,31 +20,20 @@ public class EnemyShield : MonoBehaviour
 
     private void Start()
     {
-        enemy = GetComponent<NavMeshAgent>();
-
         player = GameObject.Find("Player");
 
         int rand = Random.Range(0, 8);
-        shieldTarget = player.transform.GetChild(2).GetChild(rand);
 
         enemyData = GetComponent<EnemyData>();
-        shieldData = transform.GetChild(2).GetComponent<ShieldData>();
+        shieldData = transform.GetChild(1).GetComponent<ShieldData>();
 
         damageCooldownTimer = damageCooldown;
 
-        anim = transform.GetChild(3).GetComponent<Animator>();
+        anim = transform.GetChild(2).GetComponent<Animator>();
     }
 
     private void Update()
     {
-        enemy.SetDestination(shieldTarget.position);
-
-        if (enemy.velocity.magnitude < 0.1f)
-        {
-            Vector3 relativePos = player.transform.position - transform.position;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), 7 * Time.deltaTime);
-        }
-
         if(shieldData.isCollidingWithSword)
         {
             enemyData.cannotTakeDamage = true;
@@ -55,11 +42,6 @@ public class EnemyShield : MonoBehaviour
             enemyData.cannotTakeDamage = false;
         }
         damageCooldownTimer += Time.deltaTime;
-
-        if (enemy.velocity.magnitude < 0.1f) { movement = 0; }
-        else { movement += 3 * Time.deltaTime; }
-
-        anim.SetFloat("Blend", movement);
     }
 
     private void OnCollisionEnter(Collision collision)
