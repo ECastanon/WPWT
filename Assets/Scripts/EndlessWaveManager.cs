@@ -28,6 +28,8 @@ public class EndlessWaveManager : MonoBehaviour
     private TextMeshProUGUI wavecountertext;
     private TextMeshProUGUI wavetimertext;
 
+    private MiniMapManager mmap;
+
     void Start()
     {
         esp = GameObject.Find("EnemySpawnPool").GetComponent<EnemySpawnPool>();
@@ -39,6 +41,7 @@ public class EndlessWaveManager : MonoBehaviour
         {
             spawnLocation.Add(point);
         }
+        mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
     }
 
     void Update()
@@ -55,6 +58,7 @@ public class EndlessWaveManager : MonoBehaviour
         if (!isActivated && timer > betweenWaveTimer) 
         {
             //Activate and start generating the wave
+            mmap.ClearIconList();
             GenerateWave();
             isActivated = true;
             spawnTimer = spawnInterval;

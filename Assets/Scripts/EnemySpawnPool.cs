@@ -149,6 +149,8 @@ public class EnemySpawnPool : MonoBehaviour
 
         EnemyToActivate.SetActive(true);
         EnemyToActivate.transform.position = LocationToPlace.position;
+
+        EnemyToActivate.GetComponent<EnemyData>().AddToMiniMap();
     }
 
     private void AddMoreEnemiesToPool(GameObject Enemy, List<GameObject> EnemyList)

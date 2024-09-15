@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,7 +24,9 @@ public class EnemyMovement : MonoBehaviour
 
     private float momentumTimer;
 
-    private void Start()
+    private MiniMapManager mmap;
+
+    private void OnEnable()
     {
         enemy = GetComponent<NavMeshAgent>();
 
@@ -33,6 +36,8 @@ public class EnemyMovement : MonoBehaviour
 
         int rand = Random.Range(0, 8);
         shieldTarget = player.transform.GetChild(2).GetChild(rand);
+
+        mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
     }
 
     private void Update()
@@ -58,6 +63,7 @@ public class EnemyMovement : MonoBehaviour
         anim.SetFloat("Blend", movement);
 
         ResetMomentum();
+        MiniMapPosition();
     }
 
     private void ResetMomentum()
@@ -72,5 +78,10 @@ public class EnemyMovement : MonoBehaviour
             }
             momentumTimer = 0;
         }
+    }
+    private void MiniMapPosition()
+    {
+        Vector2 MapOffsetPos = new Vector2(transform.position.x + 15f, transform.position.z - 5.5f);
+        mmap.EnemyIconList[GetComponent<EnemyData>().minimapID].GetComponent<RectTransform>().anchoredPosition = MapOffsetPos;
     }
 }

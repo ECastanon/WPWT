@@ -24,6 +24,8 @@ public class Movement : MonoBehaviour
     private float rollTimer;
     private float smallestRollAxis;
 
+    private MiniMapManager mmap;
+
     //Some way to ignore only enemy colliders when rolling away
 
     private void Start()
@@ -31,6 +33,8 @@ public class Movement : MonoBehaviour
         playerAnim = transform.GetChild(3).GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         rollTimer = rollCooldown;
+
+        mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
     }
     private void Update()
     {
@@ -76,6 +80,8 @@ public class Movement : MonoBehaviour
         // slerp to the desired rotation over time
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, rotSpeed * Time.deltaTime);
         transform.Rotate(0, rotation, 0);
+
+        MiniMapPosition();
     }
 
     public Vector3 GetMouseLocation() //Draws a line from the mouse to detect where the ground is
@@ -127,5 +133,11 @@ public class Movement : MonoBehaviour
             rollTimer = 0;
         }
         rollTimer += Time.deltaTime;
+    }
+
+    private void MiniMapPosition()
+    {
+        Vector2 MapOffsetPos = new Vector2(transform.position.x + 15f, transform.position.z - 5.5f);
+        mmap.PlayerIcon.GetComponent<RectTransform>().anchoredPosition = MapOffsetPos;
     }
 }

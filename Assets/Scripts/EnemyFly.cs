@@ -24,6 +24,8 @@ public class EnemyFly : MonoBehaviour
     public float damageCooldown;
     private float damageCooldownTimer;
 
+    private MiniMapManager mmap;
+
     private void Start()
     {
         enemy = GetComponent<NavMeshAgent>();
@@ -32,6 +34,8 @@ public class EnemyFly : MonoBehaviour
         anim = transform.GetChild(2).GetComponent<Animator>();
 
         damageCooldownTimer = damageCooldown;
+
+        mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
     }
 
     private void Update()
@@ -78,6 +82,8 @@ public class EnemyFly : MonoBehaviour
         else { movement += 3 * Time.deltaTime; }
 
         anim.SetFloat("Blend", movement);
+
+        MiniMapPosition();
     }
 
     private void FlyUp()
@@ -135,5 +141,10 @@ public class EnemyFly : MonoBehaviour
     public void ApplyDamageToPlayer()
     {
         player.GetComponent<PlayerData>().TakeDamage(damage);
+    }
+    private void MiniMapPosition()
+    {
+        Vector2 MapOffsetPos = new Vector2(transform.position.x + 15f, transform.position.z - 5.5f);
+        mmap.EnemyIconList[GetComponent<EnemyData>().minimapID].GetComponent<RectTransform>().anchoredPosition = MapOffsetPos;
     }
 }

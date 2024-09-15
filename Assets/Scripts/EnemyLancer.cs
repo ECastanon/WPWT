@@ -14,6 +14,8 @@ public class EnemyLancer : MonoBehaviour
 
     public int damage;
 
+    private MiniMapManager mmap;
+
     private void Start()
     {
         enemy = GetComponent<NavMeshAgent>();
@@ -22,6 +24,8 @@ public class EnemyLancer : MonoBehaviour
         lanceObject.player = player;
 
         lanceObject.canDamage = false;
+
+        mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
     }
 
     private void Update()
@@ -59,6 +63,8 @@ public class EnemyLancer : MonoBehaviour
             enemy.autoBraking = true;
             enemy.angularSpeed = 270;
         }
+
+        MiniMapPosition();
     }
 
     private void ChargeAttack()
@@ -68,5 +74,11 @@ public class EnemyLancer : MonoBehaviour
         enemy.stoppingDistance = 0;
         enemy.autoBraking = false;
         enemy.angularSpeed = 180;
+    }
+
+    private void MiniMapPosition()
+    {
+        Vector2 MapOffsetPos = new Vector2(transform.position.x + 15f, transform.position.z - 5.5f);
+        mmap.EnemyIconList[GetComponent<EnemyData>().minimapID].GetComponent<RectTransform>().anchoredPosition = MapOffsetPos;
     }
 }

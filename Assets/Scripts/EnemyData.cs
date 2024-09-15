@@ -18,6 +18,9 @@ public class EnemyData : MonoBehaviour
 
     public bool cannotTakeDamage;
 
+    private MiniMapManager mmap;
+    public int minimapID;
+
     [Header("Only use if the Enemy has a death animation to play")]
     public Animator anim;
 
@@ -35,6 +38,8 @@ public class EnemyData : MonoBehaviour
         ItemSpawnLocation = transform.GetChild(0);
 
         if (GetComponent<EnemyBoss_1>()) eb1 = GetComponent<EnemyBoss_1>();
+
+        mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
     }
 
     public void TakeDamage(int damage)
@@ -110,6 +115,7 @@ public class EnemyData : MonoBehaviour
         if(valueToLowerBy != 1) { blast.GetComponent<AudioSource>().volume /= valueToLowerBy; }
         SpawnItemOnDeath();
         AddScrapsOnDeath();
+        RemoveFromMiniMap();
         gameObject.SetActive(false);
     }
 
@@ -117,5 +123,19 @@ public class EnemyData : MonoBehaviour
     {
         if(value == 0){value = 1;}
         valueToLowerBy = value;
+    }
+
+    public void AddToMiniMap()
+    {
+        mmap.CreateIconOnMap();
+        minimapID = mmap.EnemyIconList.Count - 1;
+
+        Vector2 MapOffsetPos = new Vector2(transform.position.x + 15f, transform.position.z - 5.5f);
+        mmap.EnemyIconList[GetComponent<EnemyData>().minimapID].GetComponent<RectTransform>().anchoredPosition = MapOffsetPos;
+    }
+    private void RemoveFromMiniMap()
+    {
+        mmap.RemoveIconFromMap(minimapID);
+        minimapID = 0;
     }
 }
