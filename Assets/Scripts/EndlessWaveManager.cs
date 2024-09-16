@@ -192,11 +192,11 @@ public class EndlessWaveManager : MonoBehaviour
 
             float cwn = currWaveNumber;
             //Chase
-            enemies[0].endCount += Mathf.CeilToInt(cwn * 3f);
+            enemies[0].endCount += Mathf.CeilToInt(cwn * 4f);
             //Grenade
             enemies[1].endCount += Mathf.CeilToInt(cwn / 3f);
             //Shield
-            enemies[2].endCount += Mathf.CeilToInt(cwn / 3f);
+            enemies[2].endCount += Mathf.CeilToInt(cwn / 4f);
             //Flying
             enemies[3].endCount += Mathf.CeilToInt(cwn / 4f);
             //Lancer
@@ -207,6 +207,11 @@ public class EndlessWaveManager : MonoBehaviour
 
         //Add Bosses
         enemies[5].endCount += NumberOfBosses();
+
+        //Flying and Lancers currently disabled
+        //until more intresting mechanics are added
+        enemies[3].endCount = 0;
+        enemies[4].endCount = 0;
     }
 
     private int NumberOfBosses()
