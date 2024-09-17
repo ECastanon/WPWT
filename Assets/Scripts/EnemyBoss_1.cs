@@ -8,6 +8,11 @@ public class EnemyBoss_1 : MonoBehaviour
     private NavMeshAgent enemy;
     [HideInInspector] public GameObject player;
 
+    public float attackDelay;
+    private float delayTimer;
+
+    public float AttackRange;
+
     public int damage;
     public float damageCooldown;
     private float damageCooldownTimer;
@@ -55,30 +60,20 @@ public class EnemyBoss_1 : MonoBehaviour
         damageCooldownTimer += Time.deltaTime;
 
         if (animPlaying) { GetComponent<NavMeshAgent>().speed = 0; } else { GetComponent<NavMeshAgent>().speed = 6; };
+
+        damageCooldownTimer += Time.deltaTime;
+        if (damageCooldownTimer > damageCooldown && Vector3.Distance(transform.position, player.transform.position) <= AttackRange)
+        {
+            if (delayTimer > attackDelay)
+            {
+                damageCooldownTimer = 0;
+                anim.Play("MeleeAttack");
+                delayTimer = 0;
+            }
+            delayTimer += Time.deltaTime;
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == player)
-        {
-            if (damageCooldownTimer > damageCooldown && animPlaying)
-            {
-                damageCooldownTimer = 0;
-                anim.Play("MeleeAttack");
-            }
-        }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject == player)
-        {
-            if (damageCooldownTimer > damageCooldown && animPlaying)
-            {
-                damageCooldownTimer = 0;
-                anim.Play("MeleeAttack");
-            }
-        }
-    }
 
     //Used at the end of the Attack Anim
     public void ApplyDamageToPlayer()
@@ -90,5 +85,12 @@ public class EnemyBoss_1 : MonoBehaviour
     {
         GameObject blast = Instantiate(Blast);
         blast.GetComponent<AOE_Blast>().damage = blastDamage;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AttackRange);
     }
 }

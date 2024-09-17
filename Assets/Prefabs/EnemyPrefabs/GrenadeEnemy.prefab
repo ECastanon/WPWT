@@ -284,6 +284,8 @@ MonoBehaviour:
   grenadeInterval: 3
   damage: 1
   damageCooldown: 2
+  attackDelay: 0.5
+  AttackRange: 1.25
 --- !u!54 &8351637776401882975
 Rigidbody:
   m_ObjectHideFlags: 0

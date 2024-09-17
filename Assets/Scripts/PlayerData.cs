@@ -55,6 +55,7 @@ public class PlayerData : MonoBehaviour
     public void DeathEvent()
     {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         GetComponent<Movement>().enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
         transform.GetChild(1).gameObject.SetActive(false);

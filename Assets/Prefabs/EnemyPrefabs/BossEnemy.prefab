@@ -295,6 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  attackDelay: 0.25
+  AttackRange: 2.5
   damage: 2
   damageCooldown: 3
   Blast: {fileID: 5818377795865261778, guid: 529e47e2a45efc04bad1743f5df75f01, type: 3}

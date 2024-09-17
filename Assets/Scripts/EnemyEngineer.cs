@@ -54,6 +54,7 @@ public class EnemyEngineer : MonoBehaviour
         }
 
         if (!isBuilding) { timer += Time.deltaTime; }
+
     }
 
     public void Increment()

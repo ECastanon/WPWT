@@ -276,8 +276,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76229ff4ac4a7ec4ab412c5eb3950fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldHealth: 80
   damage: 3
   damageCooldown: 2
+  attackDelay: 0.5
+  AttackRange: 1.25
 --- !u!54 &8637823485745746155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -623,6 +626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldHP: 80
+  currentHP: 0
   isCollidingWithSword: 0
   collisiontimer: 1
 --- !u!54 &3509168242495052658

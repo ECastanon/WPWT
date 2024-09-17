@@ -226,6 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   damageCooldown: 1
+  attackDelay: 0.5
+  AttackRange: 1.25
 --- !u!54 &-1675021496275174360
 Rigidbody:
   m_ObjectHideFlags: 0

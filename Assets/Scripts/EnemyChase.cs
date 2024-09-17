@@ -11,7 +11,12 @@ public class EnemyChase : MonoBehaviour
     public float damageCooldown;
     private float damageCooldownTimer;
 
+    public float attackDelay;
+    private float delayTimer;
+
     private Animator anim;
+
+    public float AttackRange;
 
     private void Start()
     {
@@ -25,28 +30,16 @@ public class EnemyChase : MonoBehaviour
     private void Update()
     {
         damageCooldownTimer += Time.deltaTime;
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == player) 
+        if (damageCooldownTimer > damageCooldown && Vector3.Distance(transform.position, player.transform.position) <= AttackRange)
         {
-            if (damageCooldownTimer > damageCooldown)
+            if(delayTimer > attackDelay)
             {
                 damageCooldownTimer = 0;
                 anim.Play("MeleeAttack");
+                delayTimer = 0;
             }
-        }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject == player)
-        {
-            if (damageCooldownTimer > damageCooldown)
-            {
-                damageCooldownTimer = 0;
-                anim.Play("MeleeAttack");
-            }
+            delayTimer += Time.deltaTime;
         }
     }
 
@@ -54,5 +47,12 @@ public class EnemyChase : MonoBehaviour
     public void ApplyDamageToPlayer()
     {
         player.GetComponent<PlayerData>().TakeDamage(damage);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AttackRange);
     }
 }
