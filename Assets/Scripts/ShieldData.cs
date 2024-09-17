@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShieldData : MonoBehaviour
 {
     public int shieldHP;
-    private int currentHP;
+    public int currentHP;
 
     public bool isCollidingWithSword;
     //If sword disapears while touching a shield, collisiontimer will then be used to turn off the boolean

@@ -18,7 +18,7 @@ public class EnemyShield : MonoBehaviour
     public float damageCooldown;
     private float damageCooldownTimer;
 
-    private void Start()
+    private void OnEnable()
     {
         player = GameObject.Find("Player");
 
@@ -30,6 +30,9 @@ public class EnemyShield : MonoBehaviour
         damageCooldownTimer = damageCooldown;
 
         anim = transform.GetChild(2).GetComponent<Animator>();
+
+        shieldData.gameObject.SetActive(true);
+        shieldData.currentHP = shieldData.shieldHP;
     }
 
     private void Update()
