@@ -16,6 +16,7 @@ public class EnemyEngineer : MonoBehaviour
     public GameObject ObjectToBuild;
     public float TimeUntilBuild;
     [HideInInspector] public GameObject Hammer;
+    private int totalBuilds = 0;
 
     private int counter;
     public int buildCounter;
@@ -24,7 +25,7 @@ public class EnemyEngineer : MonoBehaviour
     private float timer;
 
 
-    private void Start()
+    private void OnEnable()
     {
         enemy = GetComponent<NavMeshAgent>();
 
@@ -33,17 +34,25 @@ public class EnemyEngineer : MonoBehaviour
         anim = transform.GetChild(2).GetComponent<Animator>();
 
         Hammer.SetActive(false);
+        totalBuilds = 0;
+        enemy.stoppingDistance = 15;
     }
 
     private void Update()
     {
-        if(timer > TimeUntilBuild)
+        if(timer > TimeUntilBuild && totalBuilds < 2)
         {
             timer = 0;
             Hammer.SetActive(true);
             anim.Play("MeleeAttack");
             isBuilding = true;
             enemy.speed = 0;
+            totalBuilds++;
+        }
+
+        if(totalBuilds >= 2)
+        {
+            enemy.stoppingDistance = 0.5f;
         }
 
         if (!isBuilding) { timer += Time.deltaTime; }
