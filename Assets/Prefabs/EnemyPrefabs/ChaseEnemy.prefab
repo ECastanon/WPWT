@@ -209,6 +209,7 @@ MonoBehaviour:
   deathSpawnPercentage: 30
   baseScrapValue: 5
   cannotTakeDamage: 0
+  minimapID: 0
   anim: {fileID: 0}
   eb1: {fileID: 0}
 --- !u!114 &5180163431596546931

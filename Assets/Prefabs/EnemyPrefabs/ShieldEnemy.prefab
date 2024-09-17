@@ -229,7 +229,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.25
-  m_Speed: 5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 270
@@ -261,6 +261,7 @@ MonoBehaviour:
   deathSpawnPercentage: 40
   baseScrapValue: 15
   cannotTakeDamage: 0
+  minimapID: 0
   anim: {fileID: 0}
   eb1: {fileID: 0}
 --- !u!114 &5429909867685654400
