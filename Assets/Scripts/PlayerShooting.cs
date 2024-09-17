@@ -25,6 +25,7 @@ public class PlayerShooting : MonoBehaviour
     public float interval;
 
     [Header("SimpleGun")]
+    public GameObject gunModel;
     public AudioClip simpleGunSound;
     public float lifeTime;
     public int ammoDamage;
@@ -79,6 +80,8 @@ public class PlayerShooting : MonoBehaviour
 
         ammoText = GameObject.Find("ammocount").GetComponent<TextMeshProUGUI>();
         ammoText.gameObject.SetActive(false);
+
+        gunModel.SetActive(false);
     }
 
     private void Update()
@@ -86,18 +89,23 @@ public class PlayerShooting : MonoBehaviour
         switch (weaponType)
         {
             case WeaponType.SimpleGun:
+                gunModel.SetActive(true);
                 SimpleGun();
                 break;
             case WeaponType.Shotgun:
+                gunModel.SetActive(false);
                 Shotgun();
                 break;
             case WeaponType.Grenade:
+                gunModel.SetActive(false);
                 Grenade();
                 break;
             case WeaponType.Turret:
+                gunModel.SetActive(false);
                 Turret();
                 break;
             case WeaponType.Rocket:
+                gunModel.SetActive(false);
                 Rocket();
                 break;
 
@@ -129,6 +137,7 @@ public class PlayerShooting : MonoBehaviour
             if (ammo <= 0)
             {
                 ammoText.gameObject.SetActive(false);
+                gunModel.SetActive(false);
                 weaponType = WeaponType.NoWeapon;
             }
         }

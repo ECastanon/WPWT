@@ -71,7 +71,7 @@ public class Movement : MonoBehaviour
             GetComponent<Rigidbody>().velocity = vel;
             //Debug.Log("After: " + GetComponent<Rigidbody>().velocity);
         }
-        Dodge();
+        //Dodge();
 
         //Rotation Calculation
         Vector3 dir = GetMouseLocation() - transform.position;
