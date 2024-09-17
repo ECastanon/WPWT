@@ -9,10 +9,12 @@ public class EnemyShield : MonoBehaviour
 
     private GameObject player;
 
-    private ShieldData shieldData;
+    public GameObject shieldData;
     private EnemyData enemyData;
 
     private Animator anim;
+
+    public int shieldHealth = 80;
 
     public int damage;
     public float damageCooldown;
@@ -25,19 +27,20 @@ public class EnemyShield : MonoBehaviour
         int rand = Random.Range(0, 8);
 
         enemyData = GetComponent<EnemyData>();
-        shieldData = transform.GetChild(1).GetComponent<ShieldData>();
+        shieldData = transform.GetChild(1).gameObject;
 
         damageCooldownTimer = damageCooldown;
 
         anim = transform.GetChild(2).GetComponent<Animator>();
 
+        shieldData.GetComponent<ShieldData>().shieldHP = shieldHealth;
+        shieldData.GetComponent<ShieldData>().currentHP = shieldData.GetComponent<ShieldData>().shieldHP;
         shieldData.gameObject.SetActive(true);
-        shieldData.currentHP = shieldData.shieldHP;
     }
 
     private void Update()
     {
-        if(shieldData.isCollidingWithSword)
+        if(shieldData.GetComponent<ShieldData>().isCollidingWithSword)
         {
             enemyData.cannotTakeDamage = true;
         } else

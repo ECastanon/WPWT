@@ -117,8 +117,6 @@ public class WaveManager : MonoBehaviour
         }
 
         //When all enemies are disabled
-        Debug.Log(counter);
-        Debug.Log(AllEnemies.childCount);
         if (counter >= AllEnemies.childCount)
         {
             //End the wave
