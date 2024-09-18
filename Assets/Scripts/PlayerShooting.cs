@@ -5,11 +5,11 @@ using TMPro;
 
 public class PlayerShooting : MonoBehaviour
 {
-
     private PlayerAmmoPool pap;
     private Movement movement;
     private Transform FirePoint;
     private AudioSource audioSource;
+    private Animator playerAnim;
 
     public enum WeaponType { NoWeapon, SimpleGun, Shotgun, Grenade, Turret, Rocket };
 
@@ -82,6 +82,8 @@ public class PlayerShooting : MonoBehaviour
         ammoText.gameObject.SetActive(false);
 
         gunModel.SetActive(false);
+
+        playerAnim = transform.GetChild(3).GetComponent<Animator>();
     }
 
     private void Update()
@@ -89,19 +91,22 @@ public class PlayerShooting : MonoBehaviour
         switch (weaponType)
         {
             case WeaponType.SimpleGun:
-                gunModel.SetActive(true);
+                
                 SimpleGun();
                 break;
             case WeaponType.Shotgun:
                 gunModel.SetActive(false);
+                playerAnim.SetBool("SimpleGun", false);
                 Shotgun();
                 break;
             case WeaponType.Grenade:
                 gunModel.SetActive(false);
+                playerAnim.SetBool("SimpleGun", false);
                 Grenade();
                 break;
             case WeaponType.Turret:
                 gunModel.SetActive(false);
+                playerAnim.SetBool("SimpleGun", false);
                 Turret();
                 break;
             case WeaponType.Rocket:
@@ -110,6 +115,8 @@ public class PlayerShooting : MonoBehaviour
                 break;
 
             default:
+                gunModel.SetActive(false);
+
                 sword.gameObject.SetActive(true);
                 //If the player has no special weapon equipped
                 sword.damage = swordDamage;
@@ -120,6 +127,9 @@ public class PlayerShooting : MonoBehaviour
 
     private void SimpleGun()
     {
+        gunModel.SetActive(true);
+        playerAnim.SetBool("SimpleGun", true);
+
         ammoText.gameObject.SetActive(true);
         ammoText.text = "Ammo: " + ammo;
 
