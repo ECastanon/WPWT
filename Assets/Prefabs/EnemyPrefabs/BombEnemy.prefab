@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: 0
-  maxHp: 15
+  maxHp: 10
   itemToSpawnOnDeath: {fileID: 7147969691993972899, guid: 918c08172d3003d4a861f4426d618a11, type: 3}
   BlastAnim: {fileID: 3397076186956824270, guid: 81300f8583f77604d9a99f2fb32db512, type: 3}
   damageSound: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}

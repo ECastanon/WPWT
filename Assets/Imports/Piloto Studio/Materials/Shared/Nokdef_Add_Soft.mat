@@ -8,24 +8,26 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Nokdef_Add_Soft
-  m_Shader: {fileID: 4800000, guid: d985403ea514e7c46bf7c2fab31b9d95, type: 3}
-  m_ValidKeywords:
-  - _SURFACE_TYPE_TRANSPARENT
-  - _USESOFTALPHA_ON
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
   m_InvalidKeywords:
   - _DISABLE_SSR
   - _DISABLE_SSR_TRANSPARENT
-  m_LightmapFlags: 4
+  - _SURFACE_TYPE_TRANSPARENT
+  - _USESOFTALPHA_ON
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     MotionVector: User
-    RenderType: Transparent
   disabledShaderPasses:
   - DistortionVectors
   - MOTIONVECTORS
   - TransparentBackface
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -33,7 +35,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailNoise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -45,31 +59,62 @@ Material:
         m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - PixelSnap: 0
     - _AddPrecomputedVelocity: 1
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 1
     - _AlphaSrcBlend: 1
     - _BlendMode: 1
+    - _BlendOp: 0
+    - _BumpScale: 1
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
+    - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
+    - _Cutoff: 0.5
     - _Desaturate: 0
     - _DisableErosion: 0
+    - _DistortionBlend: 0.5
     - _DistortionEnable: 0
+    - _DistortionEnabled: 0
     - _DistortionIntensity: 0
     - _DistortionOnly: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
-    - _DstBlend: 1
+    - _DstBlend: 0
+    - _EmissionEnabled: 0
+    - _EnableExternalAlpha: 0
     - _EnableFogOnTransparent: 0
+    - _FlipbookMode: 0
     - _Fresnel: 0
     - _FresnelPower: 1
     - _FresnelScale: 1
+    - _Glossiness: 0.5
+    - _LightingEnabled: 1
+    - _Metallic: 0
     - _MiddlePointPos: 0.5
     - _MiddlePointPos1: 0.5
+    - _Mode: 0
     - _MultiplyNoiseDesaturation: 1
     - _OpaqueCullMode: 2
     - _ReceivesSSR: 0
@@ -77,6 +122,9 @@ Material:
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
     - _SoftFadeFactor: 1
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _SourceBlendRGB: 1
     - _SrcBlend: 1
     - _StencilRef: 0
@@ -105,10 +153,13 @@ Material:
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
+    - __dirty: 1
     m_Colors:
     - _AlphaOverrideChannel: {r: 1, g: 0, b: 0, a: 0}
     - _AlphaOverridePanning: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailAdditiveChannel: {r: 0, g: 0, b: 0, a: 0}
     - _DetailDisolveChannel: {r: 0, g: 0, b: 0, a: 1}
     - _DetailDistortionChannel: {r: 1, g: 0, b: 0, a: 0}
@@ -116,6 +167,7 @@ Material:
     - _DetailNoisePanning: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _FlipbooksColumsRows: {r: 1, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
     - _LastColor: {r: 1, g: 0, b: 0, a: 0}
@@ -124,6 +176,8 @@ Material:
     - _MainTextureChannel: {r: 1, g: 1, b: 1, a: 0}
     - _MainTexturePanning: {r: 0, g: 0, b: 0, a: 0}
     - _MidColor: {r: 1, g: 0.44479147, b: 0, a: 0}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _UnlitColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _WhiteColor: {r: 1, g: 0.8950032, b: 0, a: 0}
   m_BuildTextureStacks: []

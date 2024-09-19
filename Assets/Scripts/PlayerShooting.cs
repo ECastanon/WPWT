@@ -57,6 +57,7 @@ public class PlayerShooting : MonoBehaviour
     public float turretFireRate;
 
     [Header("Rocket")]
+    public GameObject rocketModel;
     public AudioClip rocketSound;
     public int rocketDamage;
     public float rocketTimer;
@@ -82,6 +83,7 @@ public class PlayerShooting : MonoBehaviour
         ammoText.gameObject.SetActive(false);
 
         gunModel.SetActive(false);
+        rocketModel.SetActive(false);
 
         playerAnim = transform.GetChild(3).GetComponent<Animator>();
     }
@@ -96,16 +98,19 @@ public class PlayerShooting : MonoBehaviour
                 break;
             case WeaponType.Shotgun:
                 gunModel.SetActive(false);
+                rocketModel.SetActive(false);
                 playerAnim.SetBool("SimpleGun", false);
                 Shotgun();
                 break;
             case WeaponType.Grenade:
                 gunModel.SetActive(false);
+                rocketModel.SetActive(false);
                 playerAnim.SetBool("SimpleGun", false);
                 Grenade();
                 break;
             case WeaponType.Turret:
                 gunModel.SetActive(false);
+                rocketModel.SetActive(false);
                 playerAnim.SetBool("SimpleGun", false);
                 Turret();
                 break;
@@ -116,6 +121,8 @@ public class PlayerShooting : MonoBehaviour
 
             default:
                 gunModel.SetActive(false);
+                rocketModel.SetActive(false);
+                playerAnim.SetBool("SimpleGun", false);
 
                 sword.gameObject.SetActive(true);
                 //If the player has no special weapon equipped
@@ -230,6 +237,9 @@ public class PlayerShooting : MonoBehaviour
 
     private void Rocket()
     {
+        rocketModel.SetActive(true);
+        playerAnim.SetBool("SimpleGun", true);
+
         ammoText.gameObject.SetActive(true);
         ammoText.text = "Ammo: " + ammo;
 

@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76229ff4ac4a7ec4ab412c5eb3950fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldHealth: 80
+  shieldHealth: 50
   damage: 3
   damageCooldown: 2
   attackDelay: 0.5
