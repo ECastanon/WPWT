@@ -93,7 +93,8 @@ public class PlayerShooting : MonoBehaviour
         switch (weaponType)
         {
             case WeaponType.SimpleGun:
-                
+                gunModel.SetActive(true);
+                rocketModel.SetActive(false);
                 SimpleGun();
                 break;
             case WeaponType.Shotgun:
@@ -116,6 +117,7 @@ public class PlayerShooting : MonoBehaviour
                 break;
             case WeaponType.Rocket:
                 gunModel.SetActive(false);
+                rocketModel.SetActive(true);
                 Rocket();
                 break;
 
@@ -134,7 +136,6 @@ public class PlayerShooting : MonoBehaviour
 
     private void SimpleGun()
     {
-        gunModel.SetActive(true);
         playerAnim.SetBool("SimpleGun", true);
 
         ammoText.gameObject.SetActive(true);
@@ -237,7 +238,6 @@ public class PlayerShooting : MonoBehaviour
 
     private void Rocket()
     {
-        rocketModel.SetActive(true);
         playerAnim.SetBool("SimpleGun", true);
 
         ammoText.gameObject.SetActive(true);

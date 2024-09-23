@@ -223,13 +223,13 @@ MonoBehaviour:
   shotGunAmmoDamage: 15
   shotGunSpeed: 60
   shotGunfireRate: 0.5
-  grenadeDamage: 40
-  grenadeRadius: 8
+  grenadeDamage: 60
+  grenadeRadius: 10
   launchAngle: 180
   launchSpeed: 3
   grenadeFireRate: 0.5
   turretDamge: 20
-  turretTimer: 15
+  turretTimer: 60
   launchAngle_Turret: 180
   launchSpeed_Turret: 3
   turretFireRate: 1
@@ -433,7 +433,7 @@ MonoBehaviour:
   seeThroughTextureUVSpace: 0
   seeThroughTextureScale: 1
   seeThroughChildrenSortingMode: 0
-  rmsCount: 6
+  rmsCount: 5
   hitFxInitialIntensity: 0
   hitFxMode: 0
   hitFxFadeOutDuration: 0.25

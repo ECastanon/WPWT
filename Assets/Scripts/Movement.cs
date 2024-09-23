@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public float rotSpeed;
 
     private Animator playerAnim;
-    private float movement;
+    [HideInInspector] public float movement;
 
     private Camera cam;
     public LayerMask groundMask;

@@ -258,7 +258,7 @@ MonoBehaviour:
   itemToSpawnOnDeath: {fileID: 7147969691993972899, guid: f3f20e8e1c9d5ac41b64c1378ec7e616, type: 3}
   BlastAnim: {fileID: 3397076186956824270, guid: 81300f8583f77604d9a99f2fb32db512, type: 3}
   damageSound: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
-  deathSpawnPercentage: 70
+  deathSpawnPercentage: 30
   baseScrapValue: 10
   cannotTakeDamage: 0
   minimapID: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   grenageRadius: 5
   grenadeTimer: 20
   grenadeVelocity: 11
-  grenadeInterval: 3
+  grenadeInterval: 2
   damage: 1
   damageCooldown: 2
   attackDelay: 0.5

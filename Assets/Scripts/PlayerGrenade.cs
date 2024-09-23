@@ -12,6 +12,10 @@ public class PlayerGrenade : MonoBehaviour
 
     public List<EnemyData> enemiesInRange = new List<EnemyData>();
 
+    public GameObject Light;
+
+    private float timer;
+
     private void Update()
     {
         if (transform.position.y < .1f && !isGrounded)
@@ -20,6 +24,18 @@ public class PlayerGrenade : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             isGrounded = true;
         }
+
+        if(timer > 1 && Light.activeSelf)
+        {
+            Light.SetActive(false);
+            timer = 0;
+        }
+        if (timer > 1 && !Light.activeSelf)
+        {
+            Light.SetActive(true);
+            timer = 0;
+        }
+        timer += Time.deltaTime;
     }
 
     private void GetAllEnemiesInRange()

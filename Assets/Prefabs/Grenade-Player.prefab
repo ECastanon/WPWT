@@ -103,6 +103,7 @@ MonoBehaviour:
   grenadeDamage: 0
   grenageRadius: 0
   enemiesInRange: []
+  Light: {fileID: 7539684897706152963}
 --- !u!65 &3177330589868286767
 BoxCollider:
   m_ObjectHideFlags: 0

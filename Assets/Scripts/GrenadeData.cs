@@ -17,9 +17,14 @@ public class GrenadeData : MonoBehaviour
 
     public float minVariance, maxVariance;
 
+    public GameObject Light;
+
+    private float lightTime;
+
     private void OnEnable()
     {
         timer = 0;
+        lightTime = 0;
         isGrounded = false;
     }
 
@@ -40,6 +45,18 @@ public class GrenadeData : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+
+        if (lightTime > 1 && Light.activeSelf)
+        {
+            Light.SetActive(false);
+            lightTime = 0;
+        }
+        if (lightTime > 0.5f && !Light.activeSelf)
+        {
+            Light.SetActive(true);
+            lightTime = 0;
+        }
+        lightTime += Time.deltaTime;
     }
 
     public void ThrowBallAtTargetLocation(Vector3 targetLocation, float initialVelocity)

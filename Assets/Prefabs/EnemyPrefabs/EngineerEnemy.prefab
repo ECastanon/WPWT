@@ -166,7 +166,7 @@ MonoBehaviour:
   itemToSpawnOnDeath: {fileID: 7147969691993972899, guid: 4525c1ac18ded6d4ca978a45747bb7e5, type: 3}
   BlastAnim: {fileID: 3397076186956824270, guid: 81300f8583f77604d9a99f2fb32db512, type: 3}
   damageSound: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
-  deathSpawnPercentage: 30
+  deathSpawnPercentage: 40
   baseScrapValue: 10
   cannotTakeDamage: 0
   minimapID: 0

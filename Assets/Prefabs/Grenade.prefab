@@ -106,6 +106,7 @@ MonoBehaviour:
   player: {fileID: 0}
   minVariance: -2
   maxVariance: 2
+  Light: {fileID: 8881184827686704029}
 --- !u!65 &3177330589868286767
 BoxCollider:
   m_ObjectHideFlags: 0

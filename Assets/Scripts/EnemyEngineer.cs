@@ -34,6 +34,8 @@ public class EnemyEngineer : MonoBehaviour
         Hammer.SetActive(false);
         totalBuilds = 0;
         enemy.stoppingDistance = 15;
+        timer = 0;
+        enemy.speed = 5;
     }
 
     private void Update()

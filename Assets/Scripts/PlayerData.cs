@@ -63,4 +63,14 @@ public class PlayerData : MonoBehaviour
         GOPanel.SetActive(true);
         Time.timeScale = 0;
     }
+    public void VictoryEvent()
+    {
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        GetComponent<Movement>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
+        transform.GetChild(1).gameObject.SetActive(false);
+
+        Time.timeScale = 0;
+    }
 }

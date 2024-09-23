@@ -34,6 +34,9 @@ public class WaveManager : MonoBehaviour
 
     private MiniMapManager mmap;
 
+    public GameObject VictoryPanel;
+    public bool hasWon;
+
     void Start()
     {
         esp = GameObject.Find("EnemySpawnPool").GetComponent<EnemySpawnPool>();
@@ -46,11 +49,14 @@ public class WaveManager : MonoBehaviour
             spawnLocation.Add(point);
         }
         mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
+
+        VictoryPanel.SetActive(false);
     }
 
     void Update()
     {
-        if (!isActivated)
+
+        if (!isActivated && !hasWon)
         {
             int time = (int)(betweenWaveTimer - timer) + 1;
             wavetimertext.text = "Next Wave in " + time + " seconds";
@@ -59,7 +65,7 @@ public class WaveManager : MonoBehaviour
         timer += Time.deltaTime;
 
         //Wave is not activated and the betweenWaveTimer has passed
-        if (!isActivated && timer > betweenWaveTimer)
+        if (!isActivated && timer > betweenWaveTimer && !hasWon)
         {
             //Activate and start generating the wave
             mmap.ClearIconList();
@@ -70,10 +76,16 @@ public class WaveManager : MonoBehaviour
         }
 
         //Events that play while a wave is activated
-        if (isActivated)
+        if (isActivated && !hasWon)
         {
             SpawnEnemyList();
             CheckSpawnedEnemies();
+        }
+
+        if (hasWon)
+        {
+            wavecountertext.text = "Wave: " + (currWaveNumber);
+            wavetimertext.text = "";
         }
 
     }
@@ -126,6 +138,10 @@ public class WaveManager : MonoBehaviour
             if(currWaveNumber >= wave.Count)
             {
                 Debug.Log("You win!");
+
+                hasWon = true;
+                VictoryPanel.SetActive(true);
+                GameObject.Find("Player").GetComponent<PlayerData>().VictoryEvent();
             }
         }
     }
