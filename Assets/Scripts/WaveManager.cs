@@ -17,9 +17,9 @@ public class WaveManager : MonoBehaviour
     public int currWaveNumber;
     private bool isActivated;
 
-    private List<GameObject> enemiesToSpawn = new List<GameObject>();
+    public List<GameObject> enemiesToSpawn = new List<GameObject>();
 
-    private List<Transform> spawnLocation = new List<Transform>();
+    public List<Transform> spawnLocation = new List<Transform>();
     private int spawnIndex;
     private float spawnInterval;
     private float spawnTimer;
@@ -48,6 +48,10 @@ public class WaveManager : MonoBehaviour
         {
             spawnLocation.Add(point);
         }
+        foreach (Transform point in spawnLocation)
+        {
+            point.GetChild(0).gameObject.SetActive(false);
+        }
         mmap = GameObject.Find("MMap").GetComponent<MiniMapManager>();
 
         VictoryPanel.SetActive(false);
@@ -55,7 +59,6 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-
         if (!isActivated && !hasWon)
         {
             int time = (int)(betweenWaveTimer - timer) + 1;
@@ -88,6 +91,20 @@ public class WaveManager : MonoBehaviour
             wavetimertext.text = "";
         }
 
+        if(enemiesToSpawn.Count <= 0 && isActivated)
+        {
+            foreach (Transform point in spawnLocation)
+            {
+                point.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+        if (enemiesToSpawn.Count > 0 && isActivated)
+        {
+            foreach (Transform point in spawnLocation)
+            {
+                point.GetChild(0).gameObject.SetActive(true);
+            }
+        }
     }
 
     public void GenerateWave()

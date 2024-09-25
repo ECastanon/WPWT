@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponType: 1
-  ammo: 80
+  ammo: 100
 --- !u!114 &-7456458308627265324
 MonoBehaviour:
   m_ObjectHideFlags: 0
