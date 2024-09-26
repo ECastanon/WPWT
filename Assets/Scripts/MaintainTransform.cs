@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class MaintainTransform : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     public Vector3 LocationToKeep;
     public Vector3 RotationToKeep;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
 
     void Update()
     {

@@ -83,7 +83,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 0.002
+  m_Radius: 0.0015
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4801875872913306662
 MonoBehaviour:
@@ -210,6 +210,7 @@ MonoBehaviour:
   baseScrapValue: 5
   cannotTakeDamage: 0
   minimapID: 0
+  isDummy: 0
   anim: {fileID: 0}
   eb1: {fileID: 0}
 --- !u!114 &5180163431596546931

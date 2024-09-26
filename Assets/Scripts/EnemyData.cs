@@ -1,4 +1,5 @@
 using HighlightPlus;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,12 +22,15 @@ public class EnemyData : MonoBehaviour
     private MiniMapManager mmap;
     public int minimapID;
 
+    public bool isDummy;
+
     [Header("Only use if the Enemy has a death animation to play")]
     public Animator anim;
 
     private AudioSource DefeatedSound;
     public EnemyBoss_1 eb1;
     private bool hasDied;
+
 
     private void OnEnable()
     {
@@ -115,7 +119,15 @@ public class EnemyData : MonoBehaviour
         if(valueToLowerBy != 1) { blast.GetComponent<AudioSource>().volume /= valueToLowerBy; }
         SpawnItemOnDeath();
         AddScrapsOnDeath();
-        RemoveFromMiniMap();
+        if(!isDummy)
+        { 
+            RemoveFromMiniMap();
+        }
+        if (isDummy)
+        {
+            GameObject.Find("EndlessWaveManager").GetComponent<WaveManager>().defeatedDummies++;
+        }
+
         gameObject.SetActive(false);
     }
 

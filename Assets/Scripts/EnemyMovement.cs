@@ -60,7 +60,10 @@ public class EnemyMovement : MonoBehaviour
         anim.SetFloat("Blend", movement);
 
         ResetMomentum();
-        MiniMapPosition();
+        if (!GetComponent<EnemyData>().isDummy)
+        {
+            MiniMapPosition();
+        }
     }
 
     private void ResetMomentum()

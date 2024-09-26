@@ -40,4 +40,8 @@ public class PauseManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

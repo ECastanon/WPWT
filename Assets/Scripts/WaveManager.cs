@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Properties;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -26,6 +27,7 @@ public class WaveManager : MonoBehaviour
 
     public int waveDuration;
 
+    public bool manualWaveStart;
     public float betweenWaveTimer;
     private float timer;
 
@@ -36,6 +38,15 @@ public class WaveManager : MonoBehaviour
 
     public GameObject VictoryPanel;
     public bool hasWon;
+
+    [Header("TutorialInfo")]
+    public Transform Tutorial;
+    public int tuts;
+    public List<GameObject> DummyEnemy = new List<GameObject>();
+    public int defeatedDummies;
+    public GameObject weapon;
+    public bool elock;
+    public bool tutlock;
 
     void Start()
     {
@@ -59,23 +70,59 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        if (!isActivated && !hasWon)
+        if (tutlock)
         {
-            int time = (int)(betweenWaveTimer - timer) + 1;
-            wavetimertext.text = "Next Wave in " + time + " seconds";
+            wavetimertext.text = "";
+            wavecountertext.text = "";
+            PlayTutorial();
         }
-        else wavetimertext.text = "";
-        timer += Time.deltaTime;
-
-        //Wave is not activated and the betweenWaveTimer has passed
-        if (!isActivated && timer > betweenWaveTimer && !hasWon)
+        if (!manualWaveStart && !tutlock)
         {
-            //Activate and start generating the wave
-            mmap.ClearIconList();
-            GenerateWave();
-            isActivated = true;
-            spawnTimer = spawnInterval;
-            wavecountertext.text = "Wave: " + (currWaveNumber);
+            if (!isActivated && !hasWon)
+            {
+                int time = (int)(betweenWaveTimer - timer) + 1;
+                wavetimertext.text = "Next Wave in " + time + " seconds";
+            }
+            else wavetimertext.text = "";
+            timer += Time.deltaTime;
+
+            //Wave is not activated and the betweenWaveTimer has passed
+            if (!isActivated && timer > betweenWaveTimer && !hasWon)
+            {
+                //Activate and start generating the wave
+                mmap.ClearIconList();
+                GenerateWave();
+                isActivated = true;
+                spawnTimer = spawnInterval;
+                wavecountertext.text = "Wave: " + (currWaveNumber);
+            }
+        }
+        else
+        {
+            if (!isActivated && !hasWon && !tutlock)
+            {
+                wavetimertext.text = "Press 'SPACE' to start the next wave!";
+            }
+            else
+            {
+                wavetimertext.text = "";
+            }
+
+            if (!isActivated && !hasWon && Input.GetKey("space") && !tutlock)
+            {
+                if(tuts > 0)
+                {
+                    Tutorial.GetChild(0).gameObject.SetActive(false);
+                    Tutorial.GetChild(6).gameObject.SetActive(false);
+                }
+
+                //Activate and start generating the wave
+                mmap.ClearIconList();
+                GenerateWave();
+                isActivated = true;
+                spawnTimer = spawnInterval;
+                wavecountertext.text = "Wave: " + (currWaveNumber);
+            }
         }
 
         //Events that play while a wave is activated
@@ -104,6 +151,71 @@ public class WaveManager : MonoBehaviour
             {
                 point.GetChild(0).gameObject.SetActive(true);
             }
+        }
+    }
+
+    private void PlayTutorial()
+    {
+        if(defeatedDummies == 3)
+        {
+            defeatedDummies = 0;
+            Tutorial.GetChild(0).gameObject.SetActive(true);
+            elock = false;
+        }
+
+        if (tuts == 0)
+        {
+            Tutorial.GetChild(0).gameObject.SetActive(true);
+            Tutorial.GetChild(1).gameObject.SetActive(true);
+            tuts = 1;
+        }
+        else if(tuts == 1 && Input.GetMouseButtonDown(0))
+        {
+            Tutorial.GetChild(0).gameObject.SetActive(true);
+            Tutorial.GetChild(1).gameObject.SetActive(false);
+            Tutorial.GetChild(2).gameObject.SetActive(true);
+            tuts = 2;
+        }
+        else if(tuts == 2 && Input.GetMouseButtonDown(0))
+        {
+            Tutorial.GetChild(0).gameObject.SetActive(true);
+            Tutorial.GetChild(2).gameObject.SetActive(false);
+            Tutorial.GetChild(3).gameObject.SetActive(true);
+            tuts = 3;
+        }
+        else if (tuts == 3 && Input.GetMouseButtonDown(0))
+        {
+            DummyEnemy[0].SetActive(true);
+            DummyEnemy[1].SetActive(true);
+            DummyEnemy[2].SetActive(true);
+            elock = true;
+
+            Tutorial.GetChild(0).gameObject.SetActive(false);
+            Tutorial.GetChild(3).gameObject.SetActive(false);
+            Tutorial.GetChild(4).gameObject.SetActive(true);
+            tuts = 4;
+        }
+        else if (tuts == 4 && Input.GetMouseButtonDown(0) && elock == false)
+        {
+            weapon.SetActive(true);
+
+            DummyEnemy[3].SetActive(true);
+            DummyEnemy[4].SetActive(true);
+            DummyEnemy[5].SetActive(true);
+            elock = true;
+
+            Tutorial.GetChild(0).gameObject.SetActive(false);
+            Tutorial.GetChild(4).gameObject.SetActive(false);
+            Tutorial.GetChild(5).gameObject.SetActive(true);
+            tuts = 5;
+        }
+        else if (tuts == 5 && Input.GetMouseButtonDown(0) && elock == false)
+        {
+            tutlock = false;
+            Tutorial.GetChild(0).gameObject.SetActive(true);
+            Tutorial.GetChild(5).gameObject.SetActive(false);
+            Tutorial.GetChild(6).gameObject.SetActive(true);
+            tuts = 6;
         }
     }
 
