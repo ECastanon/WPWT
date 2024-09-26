@@ -230,7 +230,16 @@ public class WaveManager : MonoBehaviour
 
         CreateNextWave();
         currWaveNumber += 1;
-        spawnInterval = waveDuration / enemiesToSpawn.Count; // gives a fixed time between each enemies
+        if(enemiesToSpawn.Count != 0)
+        {
+            spawnInterval = 0.25f; // gives a fixed time between each enemies
+            //spawnInterval = waveDuration / enemiesToSpawn.Count; // gives a fixed time between each enemies
+        }
+        else
+        {
+            spawnInterval = 0.25f; // gives a fixed time between each enemies
+        }
+        
     }
 
     private void ShuffleList<T>(List<T> list)

@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 17
   rotSpeed: 5
+  movement: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -229,7 +230,7 @@ MonoBehaviour:
   launchSpeed: 3
   grenadeFireRate: 0.5
   turretDamge: 20
-  turretTimer: 60
+  turretTimer: 30
   launchAngle_Turret: 180
   launchSpeed_Turret: 3
   turretFireRate: 1
