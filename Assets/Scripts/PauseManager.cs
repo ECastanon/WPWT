@@ -8,6 +8,8 @@ public class PauseManager : MonoBehaviour
     private GameObject pauseMenu;
     private bool isPaused;
 
+    public bool mainMenu;
+
     private void Start()
     {
         pauseMenu = GameObject.Find("PauseMenuUI");
@@ -23,25 +25,31 @@ public class PauseManager : MonoBehaviour
             isPaused = !isPaused;
         }
 
-
-        if (isPaused)
+        if (!mainMenu)
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0.0f;
-        }
-        else
-        {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1.0f;
+            if (isPaused)
+            {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0.0f;
+            }
+            else
+            {
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
         }
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+    public void Tutorial()
+    {
+        SceneManager.LoadScene(1);
     }
 }

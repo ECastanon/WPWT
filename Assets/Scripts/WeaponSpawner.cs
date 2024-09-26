@@ -16,6 +16,8 @@ public class WeaponSpawner : MonoBehaviour
             ps.weaponType = WeaponType;
             ps.ammo = ammo;
 
+            GameObject.Find("WeaponEquip").GetComponent<AudioSource>().Play();
+
             switch (WeaponType)
             {
                 case WeaponType.SimpleGun:

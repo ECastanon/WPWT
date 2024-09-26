@@ -212,7 +212,7 @@ public class WaveManager : MonoBehaviour
         else if (tuts == 5 && Input.GetMouseButtonDown(0) && elock == false)
         {
             tutlock = false;
-            Tutorial.GetChild(0).gameObject.SetActive(true);
+            Tutorial.GetChild(0).gameObject.SetActive(false);
             Tutorial.GetChild(5).gameObject.SetActive(false);
             Tutorial.GetChild(6).gameObject.SetActive(true);
             tuts = 6;
