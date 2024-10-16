@@ -44,6 +44,10 @@ public class PauseManager : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+    public void CoopLobby()
+    {
+        SceneManager.LoadScene(3);
+    }
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
