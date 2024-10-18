@@ -496,7 +496,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnBackButtonClicked
         m_Mode: 1
@@ -1515,6 +1515,7 @@ GameObject:
   - component: {fileID: 505814027}
   - component: {fileID: 505814030}
   - component: {fileID: 505814028}
+  - component: {fileID: 505814031}
   - component: {fileID: 505814029}
   m_Layer: 5
   m_Name: MainPanel
@@ -1594,6 +1595,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505814026}
   m_CullTransparentMesh: 1
+--- !u!114 &505814031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505814026}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e028219f7a54f7b4287786b81084b9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoginPanel: {fileID: 1363727884}
+  PlayerNameInput: {fileID: 1602363722}
+  SelectionPanel: {fileID: 146849949}
+  CreateRoomPanel: {fileID: 702214682}
+  RoomNameInputField: {fileID: 1193206498}
+  MaxPlayersInputField: {fileID: 356479675}
+  JoinRandomRoomPanel: {fileID: 441407812}
+  RoomListPanel: {fileID: 113300801}
+  RoomListContent: {fileID: 13605617}
+  RoomListEntryPrefab: {fileID: 114706, guid: 03c5e15309335324fba99d68e38cb08b, type: 3}
+  InsideRoomPanel: {fileID: 1614921335}
+  StartGameButton: {fileID: 2134708223}
+  PlayerListEntryPrefab: {fileID: 195212, guid: d68bf8413681d9b4aa7328277e632e3f, type: 3}
 --- !u!1 &511367295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1724,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnRoomListButtonClicked
         m_Mode: 1
@@ -2160,7 +2186,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnJoinRandomRoomButtonClicked
         m_Mode: 1
@@ -2773,7 +2799,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnLeaveGameButtonClicked
         m_Mode: 1
@@ -4080,7 +4106,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: SetActivePanel
         m_Mode: 5
@@ -4305,7 +4331,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnLoginButtonClicked
         m_Mode: 1
@@ -4628,7 +4654,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnBackButtonClicked
         m_Mode: 1
@@ -5511,7 +5537,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnCreateRoomButtonClicked
         m_Mode: 1
@@ -6163,7 +6189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505814028}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnStartGameButtonClicked
         m_Mode: 1
